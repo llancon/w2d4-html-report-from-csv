@@ -3,22 +3,22 @@
   <head>
     <meta charset="utf-8">
     <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
   var data = google.visualization.arrayToDataTable([
-    ['Task', 'Hours per Day'],
-    ['Work',     11],
-    ['Eat',      2],
-    ['Commute',  2],
-    ['Watch TV', 2],
-    ['Sleep',    7]
+    ['Pilot', 'Money'],
+    ['Fry', 350000],
+    ['Leela', 1312950],
+    ['Amy', 150000],
+    ['Bender', 3556000]
   ]);
 
     var options = {
-      title: 'Bender\'s Daily Activites'
+      title: 'Money earned by Planet Express by each Pilot'
     };
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
@@ -26,37 +26,57 @@ function drawChart() {
       </script>
   </head>
   <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
-    <h1></h1>
-    <table border='1'>
-      <tr>
-         <th>Destination</th>
-         <th>Shipment</th>
-         <th>Crates</th>
-         <th>Money</th>
-         <th>Pilot</th>
+    <h1 class="center-block">Here's how much we money we made: $<%=money%></h1>
+    <div class="center-block" id="piechart" style="width: 900px; height: 500px;"></div>
+      <table class="table table-striped">
+        <tr>
+           <th>Destination</th>
+           <th>Shipment</th>
+           <th>Crates</th>
+           <th>Money</th>
+           <th>Pilot</th>
+        </tr>
+        <% fff.each do |trip| %>
+        <tr>
+          <td>
+            <%=trip.destination%>
+          </td>
+          <td>
+            <%=trip.shipment%>
+          </td>
+          <td>
+            <%=trip.crates%>
+          </td>
+          <td>
+            <%=trip.money%>
+          </td>
+          <td>
+            <%=trip.pilot%>
+          </td>
       </tr>
-    <% fff.each do |trip| %>
-    <tr>
-      <td>
-        <%=trip.destination%>
-      </td>
-      <td>
-        <%=trip.shipment%>
-      </td>
-      <td>
-        <%=trip.crates%>
-      </td>
-      <td>
-        <%=trip.money%>
-      </td>
-      <td>
-        <%=trip.pilot%>
-      </td>
-    </tr>
-    <%end%>
-    </table>
-
+      <%end%>
+      </table>
+    </br>
+    </br>
+      <div>
+        <table class="table table-striped">
+            <tr>
+              <th>Pilots</th>
+              <th>Number of trips</th>
+              <th>Bonus$$</th>
+              <th>Total </th>
+              <%pilot.each do |trip,value|%>
+              <% ggg=value.reduce(0) {|sum,value| sum + value.money}/10.0 %>
+              <%  ddd=value.reduce(0) {|sum,value| sum + value.money}*10 %>
+            </tr>
+              <td><%=trip%></td>
+              <td><%=value.length%></td>
+              <td><%=ggg%></td>
+              <td><%=ddd%></td>
+            </tr>
+            <%end%>
+        </table>
+      </div>
 
   </body>
 </html>

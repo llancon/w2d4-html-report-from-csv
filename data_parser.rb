@@ -40,10 +40,12 @@ pilot=fff.group_by{|delivery| delivery.pilot}
     puts pilot
     pilot.each do |key,value|
     puts value.length
-# puts key.inspect
+puts key.inspect
 # puts value.inspect
     ggg=value.reduce(0) {|sum,value| sum + value.money}/10.0
-    puts ggg
+      puts ggg
+    ddd=value.reduce(0) {|sum,value| sum + value.money}*10
+      puts ddd
 end
 
 # group_by_pilot.each do |pilot, trips|
